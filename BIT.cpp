@@ -6,7 +6,10 @@ class BIT{
 
   int *tree, sz; 
   public:
-
+  BIT(){
+    sz = 200005;
+    tree = new int[sz+1];
+  }
   BIT(int N) {
     sz = N;
     tree = new int[N+1];
