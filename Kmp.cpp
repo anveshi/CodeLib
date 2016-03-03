@@ -88,9 +88,9 @@ vector <int> KMP(const string& haystack, const string& needle){
       ret.push_back(idx);
     }
   }
-  for(int i=0;i<ret.size();i++){
+  /*for(int i=0;i<ret.size();i++){
     assert(haystack.substr(ret[i],n)  == needle);
-  }
+  }*/
   return ret;
 }
 
