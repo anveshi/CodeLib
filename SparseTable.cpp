@@ -97,7 +97,20 @@ int Bruteforce(int l, int r) {
 }
 //
 
+int getMin(int l, int r) { // general O(log(n)) apporoach
+	int ret = inf; // min(inf, x) = x;
+	while(l <= r) {
+		int curlog = numlog[r - l + 1];
+		ret = min(ret, a[table[curlog][l]]);
+		l += (1 << curlog);
+	}
+	return ret;
+}
+
+
 int main() {
+
+
 	n = 2e5;
 	for(int i = 1; i <= n; i++) {
 		a[i] = rand() % n;
@@ -113,10 +126,11 @@ int main() {
 		if(l > r)
 			swap(l, r);
 
-		int x = RMQ(l, r);
+		int x = getMin(l, r);
+		int xx = RMQ(l, r); 
 		int y = find_min(1, 0, n, l, r);
 		int z = Bruteforce(l, r);
-
+		assert(xx == x);
 		assert(x == y);
 		assert(y == z);
 		DEBUG(x, l, r, y);
