@@ -24,9 +24,8 @@ void buildTable() {
 	numlog[1] = 0;
 	for(int i = 2; i <= n; i++) {
 		numlog[i] = numlog[i >> 1] + 1;
-		int tlog = log2(i);
-		assert(tlog == numlog[i]);
 	}
+
 	for(int i = 0; i <= numlog[n]; i++) {
 		int curlen = 1 << i;
 		for(int j = 1; (j + curlen - 1) <= n; j++) {
@@ -57,6 +56,17 @@ int RMQ(int l, int r) {
 	return a[getMinIndex(l, r)];
 } // O(1)
 
+int getMin(int l, int r) { // general O(log(n)) approach
+	int ret = inf; // min(inf, x) = x;
+	while(l <= r) {
+		int curlog = numlog[r - l + 1];
+		ret = min(ret, a[table[curlog][l]]);
+		l += (1 << curlog);
+	}
+	return ret;
+}
+
+//
 
 // 2. Using Segment tree
 const int inf = 1e9;
@@ -96,17 +106,6 @@ int Bruteforce(int l, int r) {
 	return ret;
 }
 //
-
-int getMin(int l, int r) { // general O(log(n)) apporoach
-	int ret = inf; // min(inf, x) = x;
-	while(l <= r) {
-		int curlog = numlog[r - l + 1];
-		ret = min(ret, a[table[curlog][l]]);
-		l += (1 << curlog);
-	}
-	return ret;
-}
-
 
 int main() {
 
